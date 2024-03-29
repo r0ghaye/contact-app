@@ -2,8 +2,7 @@ import React from "react";
 import ContactItem from "./ContactItem";
 import styles from "./ContactsList.module.css";
 
-function ContactsList({ contacts, deleteHandler }) {
-  console.log(contacts);
+function ContactsList({ contacts, deleteHandler, editHandler }) {
   return (
     <div className={styles.container}>
       <h3>Contact List</h3>
@@ -14,6 +13,7 @@ function ContactsList({ contacts, deleteHandler }) {
               key={contact.id}
               data={contact}
               deleteHandler={deleteHandler}
+              editHandler={editHandler}
             />
           ))}
         </ul>

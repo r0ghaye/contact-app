@@ -5,6 +5,7 @@ import inputs from "../constants/inputs";
 import styles from "./Contacts.module.css"
 
 function Contacts() {
+  const [isEdit, setIsEdit] = useState(false)
   const [contacts, setContacts] = useState([]);
   const [alert, setAlert] = useState("");
   const [contact, setContact] = useState({
@@ -18,6 +19,7 @@ function Contacts() {
   function changeHandler(event) {
     const name = event.target.name;
     const value = event.target.value;
+   
     setContact((contact) => ({ ...contact, [name]: value }));
   }
 
@@ -47,6 +49,32 @@ function Contacts() {
     setContacts(newContacts)
   }
 
+  const editHandler = (id) => {
+    const editContact = contacts.find(contact => contact.id === id)
+    setContact(editContact)
+    setIsEdit(true)
+  }
+
+  const applyEditHandler = () => {
+    const updateContact = contacts.map((item)=>{
+      if(item.id === contact.id){
+        item.name = contact.name;
+        item.lastName = contact.lastName;
+        item.phone = contact.phone;
+        item.email = contact.email;
+      }
+      return item
+    })
+    setContacts(updateContact)
+    setContact({
+      name: "",
+      lastName: "",
+      email: "",
+      phone: "",
+    });
+    setIsEdit(false)
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.form}>
@@ -61,10 +89,13 @@ function Contacts() {
           />
         ))}
 
-        <button onClick={addHandler}>Add Contact</button>
+{
+  isEdit ? <button onClick={applyEditHandler} >Edit Contact</button> :  <button onClick={addHandler}>Add Contact</button>
+}
+              
       </div>
       <div className={styles.alert}>{alert && <p>{alert}</p>}</div>
-      <ContactsList contacts={contacts} deleteHandler={deleteHandler} />
+      <ContactsList contacts={contacts} deleteHandler={deleteHandler}  editHandler={editHandler}/>
     </div>
   );
 }
