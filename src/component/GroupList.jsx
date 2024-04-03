@@ -1,7 +1,9 @@
+import styles from "./GroupList.module.css"
+
 function GroupList({nameGroups, deleteHandler, editHandler}) {
   return (
     <div>
-        <h1>Group list</h1>
+        <h3>Group list</h3>
       {nameGroups.length ? (
       <ul>
         {nameGroups.map(nameGroup => (
@@ -11,7 +13,7 @@ function GroupList({nameGroups, deleteHandler, editHandler}) {
             <button onClick={() => editHandler(nameGroup.id)}>✏️</button>
             </li>
         ))}
-        </ul>): <p></p>}
+        </ul>): (<p>No Group yet !</p>)}
     </div>
   )
 }

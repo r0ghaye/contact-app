@@ -1,10 +1,17 @@
-import { useState } from "react";
+import { useContext,useState } from "react";
 import ContactsList from "./ContactsList";
 import { v4 } from "uuid";
 import inputs from "../constants/inputs";
 import styles from "./Contacts.module.css";
 
+import { GroupListContext } from "../context/GroupListProvider";
+
+
+
 function Contacts() {
+
+  const { nameGroups, setNameGroups} = useContext(GroupListContext)
+
   const [isEdit, setIsEdit] = useState(false);
   const [contacts, setContacts] = useState([]);
   const [alert, setAlert] = useState("");
@@ -90,6 +97,10 @@ function Contacts() {
           />
         ))}
 
+<select>
+  <option></option>
+</select>
+       
         {isEdit ? (
           <button onClick={applyEditHandler}>Edit Contact</button>
         ) : (
