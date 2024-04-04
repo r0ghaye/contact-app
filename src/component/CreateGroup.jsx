@@ -1,9 +1,10 @@
 import { useContext,useState } from "react";
 import { v4 } from "uuid";
 import GroupList from "./GroupList";
-import styles from "./CreateGroup";
-
+import styles from "./CreateGroup.module.css";
 import { GroupListContext } from "../context/GroupListProvider";
+
+
 
 function CreateGroup() {
 
@@ -66,8 +67,8 @@ function CreateGroup() {
 
   return (
     <div className={styles.container}>
+        <h3>Create A Group</h3>
       <div className={styles.form}>
-        <h2>Create a group</h2>
         <input
           type="text"
           placeholder="The name of the group"
@@ -76,9 +77,9 @@ function CreateGroup() {
           onChange={changeHandler}
         />
         {isEdit ? (
-          <button onClick={applyEditHandler}>Edit Group</button>
+          <button className="button edit" onClick={applyEditHandler}>Edit Group</button>
         ) : (
-          <button onClick={addGroupHandler}>Add Group</button>
+          <button className="button" onClick={addGroupHandler}>Add Group</button>
         )}
       </div>
 

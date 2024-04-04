@@ -12,8 +12,8 @@ function ContactItem({data: {id, name, lastName, email, phone}, deleteHandler, e
     <p>
       <span>📞</span> {phone}
     </p>
-    <button onClick={() => deleteHandler(id)}>🗑️</button>
-    <button onClick={() => editHandler(id)}>✏️</button>
+    <button className={styles.btn} onClick={() => deleteHandler(id)}>🗑️</button>
+    <button className={styles.btn} onClick={() => editHandler(id)}>✏️</button>
   </li> 
   )
 }

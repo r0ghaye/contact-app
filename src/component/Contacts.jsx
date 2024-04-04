@@ -1,4 +1,4 @@
-import { useContext,useState } from "react";
+import { useContext, useState } from "react";
 import ContactsList from "./ContactsList";
 import { v4 } from "uuid";
 import inputs from "../constants/inputs";
@@ -6,11 +6,8 @@ import styles from "./Contacts.module.css";
 
 import { GroupListContext } from "../context/GroupListProvider";
 
-
-
 function Contacts() {
-
-  const { nameGroups, setNameGroups} = useContext(GroupListContext)
+  const { nameGroups, setNameGroups } = useContext(GroupListContext);
 
   const [isEdit, setIsEdit] = useState(false);
   const [contacts, setContacts] = useState([]);
@@ -97,14 +94,17 @@ function Contacts() {
           />
         ))}
 
-<select>
-  <option></option>
-</select>
+{ nameGroups.length > 0 &&
+ <select>
+ {nameGroups.map(group => <option key={group.id} value={group.id}>{group.name}</option>)}
+ </select>
+}
        
+
         {isEdit ? (
-          <button onClick={applyEditHandler}>Edit Contact</button>
+          <button className="button edit" onClick={applyEditHandler}>Edit Contact</button>
         ) : (
-          <button onClick={addHandler}>Add Contact</button>
+          <button className="button" onClick={addHandler}>Add Contact</button>
         )}
       </div>
       <div className={styles.alert}>{alert && <p>{alert}</p>}</div>
