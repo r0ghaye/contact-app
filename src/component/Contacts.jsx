@@ -5,9 +5,10 @@ import inputs from "../constants/inputs";
 import styles from "./Contacts.module.css";
 
 import { GroupListContext } from "../context/GroupListProvider";
+import GroupList from "./GroupList";
 
 function Contacts() {
-  const { nameGroups, setNameGroups } = useContext(GroupListContext);
+  const { nameGroups, setNameGroups,nameGroup, setNameGroup,isGroupEdit, setIsGroupEdit } = useContext(GroupListContext);
 
   const [isEdit, setIsEdit] = useState(false);
   const [contacts, setContacts] = useState([]);
@@ -80,6 +81,18 @@ function Contacts() {
     setIsEdit(false);
   };
 
+  const deleteGroupHandler = (id) => {
+    const newGroups = nameGroups.filter((nameGroup) => nameGroup.id !== id);
+    console.log(newGroups);
+    setNameGroups(newGroups);
+  };
+
+  const editGroupHandler = (id) => {
+    const editGroup = nameGroups.find((nameGroup) => nameGroup.id === id);
+    setNameGroup(editGroup);
+    setIsGroupEdit(true);
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.form}>
@@ -107,7 +120,13 @@ function Contacts() {
           <button className="button" onClick={addHandler}>Add Contact</button>
         )}
       </div>
-      <div className={styles.alert}>{alert && <p>{alert}</p>}</div>
+      <div className='alert'>{alert && <p>{alert}</p>}</div>
+
+      <GroupList
+        nameGroups={nameGroups}
+        deleteGroupHandler={deleteGroupHandler}
+        editGroupHandler={editGroupHandler}
+      />
 
       <ContactsList
         contacts={contacts}

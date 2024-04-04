@@ -1,6 +1,6 @@
 import styles from "./GroupList.module.css"
 
-function GroupList({nameGroups, deleteHandler, editHandler}) {
+function GroupList({nameGroups, deleteGroupHandler, editGroupHandler}) {
   return (
     <div>
         <h3>Group list</h3>
@@ -9,8 +9,8 @@ function GroupList({nameGroups, deleteHandler, editHandler}) {
         {nameGroups.map(nameGroup => (
           <li key={nameGroup.id} >
             <p>{nameGroup.name}</p>
-            <button onClick={() => deleteHandler(nameGroup.id)}>🗑️</button>
-            <button onClick={() => editHandler(nameGroup.id)}>✏️</button>
+            <button onClick={() => deleteGroupHandler(nameGroup.id)}>🗑️</button>
+            <button onClick={() => editGroupHandler(nameGroup.id)}>✏️</button>
             </li>
         ))}
         </ul>): (<p>No Group yet !</p>)}

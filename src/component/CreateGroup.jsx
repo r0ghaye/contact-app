@@ -8,15 +8,12 @@ import { GroupListContext } from "../context/GroupListProvider";
 
 function CreateGroup() {
 
-  const { nameGroups, setNameGroups} = useContext(GroupListContext)
+  const { nameGroups, setNameGroups, nameGroup, setNameGroup,isGroupEdit, setIsGroupEdit} = useContext(GroupListContext)
 
-  const [isEdit, setIsEdit] = useState(false);
+  
   
   const [alert, setAlert] = useState("");
-  const [nameGroup, setNameGroup] = useState({
-    id: "",
-    name: "",
-  });
+ 
 
   const changeHandler = (event) => {
     setNameGroup((nameGroup) => ({
@@ -39,17 +36,7 @@ function CreateGroup() {
     });
   };
 
-  const deleteHandler = (id) => {
-    const newGroups = nameGroups.filter((nameGroup) => nameGroup.id !== id);
-    console.log(newGroups);
-    setNameGroups(newGroups);
-  };
-
-  const editHandler = (id) => {
-    const editGroup = nameGroups.find((nameGroup) => nameGroup.id === id);
-    setNameGroup(editGroup);
-    setIsEdit(true);
-  };
+  
 
   const applyEditHandler = () => {
     const updateGroup = nameGroups.map((item) => {
@@ -62,7 +49,7 @@ function CreateGroup() {
     setNameGroup({
       name: "",
     });
-    setIsEdit(false);
+    setIsGroupEdit(false);
   };
 
   return (
@@ -76,20 +63,16 @@ function CreateGroup() {
           value={nameGroup.name}
           onChange={changeHandler}
         />
-        {isEdit ? (
+        {isGroupEdit ? (
           <button className="button edit" onClick={applyEditHandler}>Edit Group</button>
         ) : (
           <button className="button" onClick={addGroupHandler}>Add Group</button>
         )}
       </div>
 
-      <div>{alert && <p>{alert}</p>}</div>
+      <div className="alert">{alert && <p>{alert}</p>}</div>
 
-      <GroupList
-        nameGroups={nameGroups}
-        deleteHandler={deleteHandler}
-        editHandler={editHandler}
-      />
+     
     </div>
   );
 }
